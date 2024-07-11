@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CounterFacade } from './core/state/counter/counter.facade';
+import { TypesFacade } from './core/state/types/types.facade';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,22 @@ import { CounterFacade } from './core/state/counter/counter.facade';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   count$ = this.counterFacade.count$;
 
-  constructor(private counterFacade: CounterFacade){
+  constructor(
+    private counterFacade: CounterFacade,
+    private typesFacade: TypesFacade
+  ) {
 
   }
 
-  increment(){
+  ngOnInit(): void {
+    this.typesFacade.loadTypes();
+  }
+
+  increment() {
     this.counterFacade.increment();
   }
 

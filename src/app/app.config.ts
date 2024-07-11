@@ -7,8 +7,22 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 
-import { counterReducer } from './core/state/counter/counter.reducer';
+import { provideHttpClient } from '@angular/common/http';
+import { metaReducers, reducers } from './core/state/index';
+import { TypeEffects } from './core/state/types/types.effects';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideStore({ count: counterReducer }), provideEffects(), provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideHttpClient(),
+    provideAnimationsAsync(),
+    provideStore(reducers, {metaReducers}),
+    provideEffects([
+      TypeEffects
+    ]),
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: !isDevMode()
+    })]
 };
