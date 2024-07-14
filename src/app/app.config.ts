@@ -9,6 +9,7 @@ import { routes } from './app.routes';
 
 import { provideHttpClient } from '@angular/common/http';
 import { metaReducers, reducers } from './core/state/index';
+import { SuperTypesEffects } from './core/state/supertypes/super-types.effects';
 import { TypeEffects } from './core/state/types/types.effects';
 
 export const appConfig: ApplicationConfig = {
@@ -19,7 +20,8 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideStore(reducers, {metaReducers}),
     provideEffects([
-      TypeEffects
+      TypeEffects,
+      SuperTypesEffects
     ]),
     provideStoreDevtools({
       maxAge: 25,

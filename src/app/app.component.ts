@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CounterFacade } from './core/state/counter/counter.facade';
+import { SuperTypesFacade } from './core/state/supertypes/super-types.facade';
 import { TypesFacade } from './core/state/types/types.facade';
 
 @Component({
@@ -17,13 +18,16 @@ export class AppComponent implements OnInit {
 
   constructor(
     private counterFacade: CounterFacade,
-    private typesFacade: TypesFacade
+    private typesFacade: TypesFacade,
+    private superTypesFacade: SuperTypesFacade,
+    // private subTypesFacade: SubTypesFacade
   ) {
 
   }
 
   ngOnInit(): void {
     this.typesFacade.loadTypes();
+    this.superTypesFacade.loadSuperTypes();
   }
 
   increment() {
