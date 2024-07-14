@@ -1,54 +1,35 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PokemonCatalogResponse, SearchParams, SubType, SuperType, Type } from '../../models/util-types';
 
-const API_VERSION: string = 'v2'
-const API_URL: string = `https://api.pokemontcg.io/${API_VERSION}`;
+
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonCatalogApiService {
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) { }
+  private readonly API_VERSION: string = 'v2'
+  private readonly API_URL: string = `https://api.pokemontcg.io/${this.API_VERSION}`;
 
   getCards(): Observable<PokemonCatalogResponse<unknown>>{
-    return this.http.get<PokemonCatalogResponse<unknown>>(API_URL + '/cards');
+    return this.http.get<PokemonCatalogResponse<unknown>>(this.API_URL + '/cards');
   }
 
   getCard(id: string): Observable<PokemonCatalogResponse<unknown>>{
-    return this.http.get<PokemonCatalogResponse<unknown>>(API_URL + '/cards' + `/${id}`);
+    return this.http.get<PokemonCatalogResponse<unknown>>(this.API_URL + '/cards' + '/' + `${id}`);
   }
 
   searchCards(searchParams: SearchParams):Observable<PokemonCatalogResponse<unknown>>{
-    return this.http.get<PokemonCatalogResponse<unknown>>(API_URL + '/cards', );
+    return this.http.get<PokemonCatalogResponse<unknown>>(this.API_URL + '/cards', );
   }
 
   // --- TYPES ---
 
-  getTypes(): Observable<PokemonCatalogResponse<Type>> { return this.http.get<PokemonCatalogResponse<Type>>(API_URL + '/types'); }
+  getTypes(): Observable<PokemonCatalogResponse<Type>> { return this.http.get<PokemonCatalogResponse<Type>>(this.API_URL + '/types'); }
 
-  getSubTypes(): Observable<PokemonCatalogResponse<SubType>> { return this.http.get<PokemonCatalogResponse<SubType>>(API_URL + '/subtypes') }
+  getSubTypes(): Observable<PokemonCatalogResponse<SubType>> { return this.http.get<PokemonCatalogResponse<SubType>>(this.API_URL + '/subtypes') }
 
-  getSuperTypes(): Observable<PokemonCatalogResponse<SuperType>> { return this.http.get<PokemonCatalogResponse<SuperType>>(API_URL + '/supertypes') }
-}
-
-
-type SuperType = string
-type SubType = string
-type Type = string;
-
-interface PokemonCatalogResponse<T> {
-  data: T[];
-  page?: number;
-  pageSize?: number;
-  count?: number;
-  totalCount?: number;
-  select?: string;
-}
-
-interface SearchParams{
-  q?: string;
-  page?: number;
-  pageSize?: number;
-  orderBy: string;
+  getSuperTypes(): Observable<PokemonCatalogResponse<SuperType>> { return this.http.get<PokemonCatalogResponse<SuperType>>(this.API_URL + '/supertypes') }
 }
