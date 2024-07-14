@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 export interface FilterValues{
-  superTypes: string[] | null;
+  superType: string | null;
   types: string[] | null;
   subTypes: string[] | null;
 }
@@ -27,7 +27,7 @@ export class FiltersComponent {
   @Output() filtersChange: EventEmitter<FilterValues> = new EventEmitter();
 
   filterForm: FormGroup = this.formBuilder.group({
-    superTypes: [null],
+    superType: null,
     types: [null],
     subTypes: [null]
   })

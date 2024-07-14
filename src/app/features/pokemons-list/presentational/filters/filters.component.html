@@ -3,8 +3,9 @@
 <form [formGroup]="filterForm">
   <mat-form-field appearance="outline">
     <mat-label>superTypes</mat-label>
-    <mat-select formControlName="superTypes"
-                multiple>
+    <mat-select formControlName="superType"
+                >
+                <mat-option [value]="null"></mat-option>
       @for(superType of superTypes; track $index){
       <mat-option [value]="superType">{{superType}}</mat-option>
       }
