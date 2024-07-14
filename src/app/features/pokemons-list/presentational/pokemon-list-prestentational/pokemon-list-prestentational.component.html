@@ -31,6 +31,20 @@
                 *matCellDef="let pokemon"> {{pokemon.supertype}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="types">
+            <th mat-header-cell
+                *matHeaderCellDef> type </th>
+            <td mat-cell
+                *matCellDef="let pokemon"> {{pokemon.types}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="subtypes">
+            <th mat-header-cell
+                *matHeaderCellDef> subtypes </th>
+            <td mat-cell
+                *matCellDef="let pokemon"> {{pokemon.subtypes}} </td>
+          </ng-container>
+
 
           <tr mat-header-row
               *matHeaderRowDef="displayedColumns; sticky:true"  ></tr>
@@ -38,9 +52,9 @@
               *matRowDef="let myRowData; columns: displayedColumns"></tr>
 
         </table>
-        <mat-paginator [length]="dataSource.count"
+        <mat-paginator [length]="dataSource.totalCount"
         [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="paginationData.next($event)"
         aria-label="Select page"></mat-paginator>
       </mat-drawer-content >
       <mat-drawer #drawer style="width:600px;"
