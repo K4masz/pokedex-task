@@ -1,7 +1,14 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+
+export interface FilterValues{
+  superTypes: string[] | null;
+  types: string[] | null;
+  subTypes: string[] | null;
+}
 
 @Component({
   selector: 'app-filters',
@@ -17,17 +24,19 @@ export class FiltersComponent {
   @Input() subTypes: string[] = [];
   @Input() superTypes: string[] = [];
 
+  @Output() filtersChange: EventEmitter<FilterValues> = new EventEmitter();
+
   filterForm: FormGroup = this.formBuilder.group({
-    superTypes: [''],
-    types: [''],
-    subTypes: ['']
+    superTypes: [null],
+    types: [null],
+    subTypes: [null]
   })
+
+  changesSubscription = this.filterForm.valueChanges.pipe(
+    takeUntilDestroyed(),
+  ).subscribe((values:FilterValues) => this.filtersChange.emit(values))
 
   resetForm(){
     this.filterForm.reset();
-  }
-
-  submit(){
-    console.log(this.filterForm.value);
   }
 }

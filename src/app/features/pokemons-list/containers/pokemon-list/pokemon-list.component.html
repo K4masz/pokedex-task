@@ -2,6 +2,6 @@
 [types]="(types$ | async) || [] "
 [subTypes]="(subTypes$ | async) || [] "
 [superTypes]="(superTypes$ | async) || []"
-
+(filtersChange)="onFiltersValueChange($event)"
 ></app-filters>
 <app-pokemon-list-prestentational [dataSource]="dataSource$ | async" (paginationData)="onPageChange($event)"></app-pokemon-list-prestentational>

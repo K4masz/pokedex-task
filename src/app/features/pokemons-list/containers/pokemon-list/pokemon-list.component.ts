@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable, of } from 'rxjs';
-import { FiltersComponent } from "../../presentational/filters/filters.component";
+import { FiltersComponent, FilterValues } from "../../presentational/filters/filters.component";
 import { PokemonListPrestentationalComponent } from "../../presentational/pokemon-list-prestentational/pokemon-list-prestentational.component";
 
 @Component({
@@ -23,5 +23,9 @@ export class PokemonListComponent {
 
   onPageChange(event: PageEvent){
     this.dataSource$ = this.http.get(`https://api.pokemontcg.io/v2/cards?pageSize=10&page=${event.pageIndex}`)
+  }
+
+  onFiltersValueChange(event: FilterValues){
+    console.log(event);
   }
 }
