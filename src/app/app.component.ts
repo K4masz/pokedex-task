@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     private counterFacade: CounterFacade,
     private typesFacade: TypesFacade,
     private superTypesFacade: SuperTypesFacade,
-    // private subTypesFacade: SubTypesFacade
+    private subTypesFacade: SubTypesFacade
   ) {
 
   }
@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.typesFacade.loadTypes();
     this.superTypesFacade.loadSuperTypes();
+    this.subTypesFacade.loadSubTypes();
   }
 
   increment() {
