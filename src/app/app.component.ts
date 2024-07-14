@@ -7,12 +7,32 @@ import { PokemonDetailsComponent } from "./features/pokemon-details/containers/p
 import { PokemonListComponent } from "./features/pokemons-list/containers/pokemon-list/pokemon-list.component";
 
 
+import { CommonModule } from '@angular/common';
+import { OnInit } from '@angular/core';
+import { SubTypesFacade } from './core/state/subtypes/sub-types.facade';
+import { SuperTypesFacade } from './core/state/supertypes/super-types.facade';
+import { TypesFacade } from './core/state/types/types.facade';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PokemonListComponent, MatCardModule, MatSidenavModule, MatDivider, PokemonDetailsComponent],
+  imports: [RouterOutlet, CommonModule, PokemonListComponent, MatCardModule, MatSidenavModule, MatDivider, PokemonDetailsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+
+  constructor(
+    private typesFacade: TypesFacade,
+    private superTypesFacade: SuperTypesFacade,
+    private subTypesFacade: SubTypesFacade
+  ) {
+
+  }
+
+  ngOnInit(): void {
+    this.typesFacade.loadTypes();
+    this.superTypesFacade.loadSuperTypes();
+    this.subTypesFacade.loadSubTypes();
+  }
+}
