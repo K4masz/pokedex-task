@@ -8,9 +8,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 
 import { provideHttpClient } from '@angular/common/http';
-import { metaReducers, reducers } from './core/state/index';
-import { SuperTypesEffects } from './core/state/supertypes/super-types.effects';
-import { TypeEffects } from './core/state/types/types.effects';
+import { effects, metaReducers, reducers } from './core/state/index';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,10 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideAnimationsAsync(),
     provideStore(reducers, {metaReducers}),
-    provideEffects([
-      TypeEffects,
-      SuperTypesEffects
-    ]),
+    provideEffects(effects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode()
