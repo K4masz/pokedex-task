@@ -1,0 +1,32 @@
+<button (click)="resetForm()">clear</button>
+
+<form [formGroup]="filterForm">
+<mat-form-field appearance="outline">
+  <mat-label>superTypes</mat-label>
+  <mat-select formControlName="superTypes" multiple>
+    @for(superType of superTypes; track $index){
+    <mat-option [value]="superType">{{superType}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+  <mat-label>types</mat-label>
+  <mat-select formControlName="types" multiple>
+    @for(type of types; track $index){
+    <mat-option [value]="type">{{type}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+  <mat-label>subTypes</mat-label>
+  <mat-select formControlName="subTypes" multiple>
+    @for(subType of subTypes; track $index){
+    <mat-option [value]="subType">{{subType}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+</form>
+<button (click)="submit()"></button>
