@@ -2,7 +2,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { SubTypesFacade } from '../../../../core/state/subtypes/sub-types.facade';
+import { SuperTypesFacade } from '../../../../core/state/supertypes/super-types.facade';
+import { TypesFacade } from '../../../../core/state/types/types.facade';
 import { FiltersComponent, FilterValues } from "../../presentational/filters/filters.component";
 import { PokemonListPrestentationalComponent } from "../../presentational/pokemon-list-prestentational/pokemon-list-prestentational.component";
 
@@ -17,9 +20,14 @@ export class PokemonListComponent {
   http = inject(HttpClient)
 
   dataSource$ = this.http.get('https://api.pokemontcg.io/v2/cards?pageSize=10&page=1');
-  types$: Observable<string[]> = of(['type1', 'type2']);
-  superTypes$: Observable<string[]> = of(['superType1', 'superType2']);
-  subTypes$: Observable<string[]> = of(['subType1', 'subType2']);
+
+  typesFacade = inject(TypesFacade);
+  superTypesFacade = inject(SuperTypesFacade);
+  subTypesFacade = inject(SubTypesFacade);
+
+  types$: Observable<string[]> = this.typesFacade.types$;
+  superTypes$: Observable<string[]> = this.superTypesFacade.superTypes$;
+  subTypes$: Observable<string[]> = this.subTypesFacade.subTypes$;
 
   onPageChange(event: PageEvent){
     this.dataSource$ = this.http.get(`https://api.pokemontcg.io/v2/cards?pageSize=10&page=${event.pageIndex}`)
