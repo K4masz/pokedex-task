@@ -1,15 +1,114 @@
-@if (data) {
-<p>name: {{data.name}} {{data.nationalPokedexNumbers}}</p>
-<p>superType: {{data.supertype}}</p>
-<p>hp: {{data.hp}}</p>
-<p>types: {{data.types}}</p>
-<p>attacks: {{data.attacks.join(', ')}}</p>
-<img [src]="data.images.small">
 
+@if (card) {
+<div class="pokemon-details__details-container">
+  <img class="pokemon-details__card-image" [src]="card.images.small"/>
 
+  <form [formGroup]="cardForm" class="pokemon-details__card-details">
+
+    <mat-form-field appearance="outline" >
+      <mat-label>name</mat-label>
+      <input matInput
+             formControlName="name" />
+    </mat-form-field>
+
+    <div class="pokemon-details__controls" >
+      <button class="pokemon-details__control-button" [disabled]="editMode" (click)="edit()" >edit</button>
+      <button class="pokemon-details__control-button" [disabled]="!editMode" (click)="save()" >save</button>
+      <button class="pokemon-details__control-button" [disabled]="!editMode" (click)="discard()" >discard</button></div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>HP</mat-label>
+      <input matInput
+             formControlName="hp" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>SuperType</mat-label>
+      <mat-select formControlName="supertype">
+        @for (superType of superTypes; track $index) {
+        <mat-option [value]="superType">{{superType}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Types</mat-label>
+      <mat-select multiple
+                  formControlName="types">
+        @for (type of types; track $index) {
+        <mat-option [value]="type">{{type}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>SubTypes</mat-label>
+      <mat-select multiple
+                  formControlName="subtypes">
+        @for (subtype of subTypes; track $index) {
+        <mat-option [value]="subtype">{{subtype}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <fieldset>
+    <legend>Resistances</legend>
+    <mat-chip-set aria-label="Card resistances">
+      @for(resistance of card.resistances; track $index){
+      <mat-chip>{{resistance.type + ' ' + resistance.value}}</mat-chip>
+      }
+    </mat-chip-set>
+  </fieldset>
+
+    <fieldset class="">
+      <legend>Weaknesses</legend>
+      <mat-chip-set aria-label="Card weaknesses">
+        @for(weakness of card.weaknesses; track $index){
+        <mat-chip>{{weakness.type + ' ' + weakness.value}}</mat-chip>
+        }
+      </mat-chip-set>
+    </fieldset>
+  </form>
+
+</div>
 <mat-tab-group>
-  <mat-tab label="First"> Content 1 </mat-tab>
-  <mat-tab label="Similar"> Content 2 </mat-tab>
-  <mat-tab label="Third"> Content 3 </mat-tab>
+  <mat-tab label="Attacks">
+    <table mat-table
+           [dataSource]="card.attacks ?? []">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell
+            *matHeaderCellDef> name </th>
+        <td mat-cell
+            *matCellDef="let attack"> {{attack.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="damage">
+        <th mat-header-cell
+            *matHeaderCellDef> damage </th>
+        <td mat-cell
+            *matCellDef="let attack"> {{attack.damage}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cost">
+        <th mat-header-cell
+            *matHeaderCellDef> cost </th>
+        <td mat-cell
+            *matCellDef="let attack"> {{attack.cost}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="convertedEnergyCost">
+        <th mat-header-cell
+            *matHeaderCellDef> converted energy cost </th>
+        <td mat-cell
+            *matCellDef="let attack"> {{attack.convertedEnergyCost}} </td>
+      </ng-container>
+
+      <tr mat-header-row
+          *matHeaderRowDef="attacksTableDisplayedColumns; sticky:true"></tr>
+      <tr mat-row
+          *matRowDef="let myRowData; columns: attacksTableDisplayedColumns"></tr>
+    </table>
+  </mat-tab>
+  <mat-tab label="Similar Cards"> {{similarCards | json}} </mat-tab>
 </mat-tab-group>
 }

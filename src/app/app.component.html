@@ -10,10 +10,13 @@
         <app-pokemon-list></app-pokemon-list>
       </mat-drawer-content>
       <mat-drawer #drawer
-                  style="width:600px;"
+                  style="width:65vw;"
                   mode="over"
-                  position="end">
-                  <app-pokemon-details></app-pokemon-details>
+                  position="end"
+                  [opened]="true">
+        <button (click)="drawer.close()">close</button>
+
+        <app-pokemon-details></app-pokemon-details>
       </mat-drawer>
     </mat-drawer-container>
 
