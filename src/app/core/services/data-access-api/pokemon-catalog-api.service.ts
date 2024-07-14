@@ -19,8 +19,12 @@ export class PokemonCatalogApiService {
     return this.http.get<PokemonCatalogResponse<unknown>>(API_URL + '/cards' + `/${id}`);
   }
 
+  searchCards(searchParams: SearchParams):Observable<PokemonCatalogResponse<unknown>>{
+    return this.http.get<PokemonCatalogResponse<unknown>>(API_URL + '/cards', );
+  }
+
   // --- TYPES ---
-  //TODO: initally load all of them at app start
+
   getTypes(): Observable<PokemonCatalogResponse<Type>> { return this.http.get<PokemonCatalogResponse<Type>>(API_URL + '/types'); }
 
   getSubTypes(): Observable<PokemonCatalogResponse<SubType>> { return this.http.get<PokemonCatalogResponse<SubType>>(API_URL + '/subtypes') }
@@ -39,4 +43,12 @@ interface PokemonCatalogResponse<T> {
   pageSize?: number;
   count?: number;
   totalCount?: number;
+  select?: string;
+}
+
+interface SearchParams{
+  q?: string;
+  page?: number;
+  pageSize?: number;
+  orderBy: string;
 }
