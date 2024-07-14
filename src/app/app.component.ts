@@ -9,6 +9,7 @@ import { PokemonListComponent } from "./features/pokemons-list/containers/pokemo
 
 import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
+import { CardsFacade } from './core/state/cards/cards.facade';
 import { SubTypesFacade } from './core/state/subtypes/sub-types.facade';
 import { SuperTypesFacade } from './core/state/supertypes/super-types.facade';
 import { TypesFacade } from './core/state/types/types.facade';
@@ -25,12 +26,14 @@ export class AppComponent implements OnInit {
   constructor(
     private typesFacade: TypesFacade,
     private superTypesFacade: SuperTypesFacade,
-    private subTypesFacade: SubTypesFacade
+    private subTypesFacade: SubTypesFacade,
+    private cardsFacade: CardsFacade
   ) {
 
   }
 
   ngOnInit(): void {
+    this.cardsFacade.loadCards();
     this.typesFacade.loadTypes();
     this.superTypesFacade.loadSuperTypes();
     this.subTypesFacade.loadSubTypes();

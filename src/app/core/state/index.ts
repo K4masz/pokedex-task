@@ -1,5 +1,7 @@
 import { isDevMode } from '@angular/core';
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { CardsEffects } from './cards/cards.effects';
+import { cardsReducer } from './cards/cards.reducer';
 import { SubTypesEffects } from './subtypes/sub-types.effects';
 import { subTypesReducer } from './subtypes/sub-types.reducer';
 import { SuperTypesEffects } from './supertypes/super-types.effects';
@@ -12,7 +14,8 @@ export interface State {}
 export const reducers : ActionReducerMap<State> = {
   types: typesReducer,
   superTypes: superTypesReducer,
-  subTypes: subTypesReducer
+  subTypes: subTypesReducer,
+  cards: cardsReducer
 };
 
 export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];
@@ -20,5 +23,6 @@ export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];
 export const effects = [
   TypeEffects,
   SuperTypesEffects,
-  SubTypesEffects
+  SubTypesEffects,
+  CardsEffects
 ]
