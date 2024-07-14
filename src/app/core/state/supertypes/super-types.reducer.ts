@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { loadSuperTypes, superTypesLoadedSuccess, superTypesLoadError } from './super-types.actions';
 
 
-export const TypesFeatureKey = 'SuperTypes';
+export const TypesFeatureKey = 'superTypes';
 
 export interface SuperTypesState {
   superTypes: string[];

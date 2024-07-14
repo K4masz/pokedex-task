@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { loadSubTypes, subTypesLoadedSuccess, subTypesLoadError } from './sub-types.actions';
 
 
-export const TypesFeatureKey = 'SubTypes';
+export const TypesFeatureKey = 'subTypes';
 
 export interface SubTypesState {
   subTypes: string[];

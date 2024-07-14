@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { loadTypes, typesLoadedSuccess, typesLoadError } from './types.actions';
 
 
-export const TypesFeatureKey = 'Types';
+export const TypesFeatureKey = 'types';
 
 export interface TypesState {
   types: string[];
