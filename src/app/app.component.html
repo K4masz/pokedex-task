@@ -1,1 +1,24 @@
-<app-pokemon-list></app-pokemon-list>
+<mat-card style="margin: auto; top:2rem; height:90vh; width: 95vw;">
+  <mat-card-header style="border-bottom: 1px solid black;">
+    <mat-card-title>Pokédex     <button (click)="drawer.open()">open</button>
+      <button (click)="drawer.close()">close</button></mat-card-title>
+    <mat-divider></mat-divider>
+  </mat-card-header>
+  <mat-card-content style="height: 100%;max-height: 100%; overflow: hidden;">
+    <mat-drawer-container style="height: 100%;">
+      <mat-drawer-content >
+        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+          <input/>
+          <input/>
+          <input/>
+        </div>
+        <app-pokemon-list></app-pokemon-list>
+
+      </mat-drawer-content >
+      <mat-drawer #drawer style="width:600px;"
+                  mode="over"
+                  position="end">Pokemon Details - Pikachu</mat-drawer>
+    </mat-drawer-container>
+
+  </mat-card-content>
+</mat-card>

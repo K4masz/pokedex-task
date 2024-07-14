@@ -1,16 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatDivider } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-pokemon-list-prestentational',
   standalone: true,
-  imports: [MatCardModule, MatListModule, MatPaginatorModule, CommonModule, MatTableModule, MatSidenavModule, MatDivider],
+  imports: [MatListModule, MatPaginatorModule, CommonModule, MatTableModule],
   templateUrl: './pokemon-list-prestentational.component.html',
   styleUrl: './pokemon-list-prestentational.component.scss'
 })
