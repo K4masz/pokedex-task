@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { PokemonDetailsPresentationalComponent } from "../../presentational/pokemon-details-presentational/pokemon-details-presentational.component";
 
 @Component({
@@ -12,5 +13,5 @@ import { PokemonDetailsPresentationalComponent } from "../../presentational/poke
 })
 export class PokemonDetailsComponent {
 http = inject(HttpClient);
-data$: unknown = this.http.get('https://api.pokemontcg.io/v2/cards/ecard2-H2')
+data$: Observable<object> = this.http.get<{data:object}>('https://api.pokemontcg.io/v2/cards/ecard2-H2').pipe(map((x=> x.data ?? {})))
 }
