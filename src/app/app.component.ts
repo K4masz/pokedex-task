@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CounterFacade } from './core/state/counter/counter.facade';
+import { SubTypesFacade } from './core/state/subtypes/sub-types.facade';
 import { SuperTypesFacade } from './core/state/supertypes/super-types.facade';
 import { TypesFacade } from './core/state/types/types.facade';
 
@@ -14,10 +14,7 @@ import { TypesFacade } from './core/state/types/types.facade';
 })
 export class AppComponent implements OnInit {
 
-  count$ = this.counterFacade.count$;
-
   constructor(
-    private counterFacade: CounterFacade,
     private typesFacade: TypesFacade,
     private superTypesFacade: SuperTypesFacade,
     private subTypesFacade: SubTypesFacade
@@ -29,17 +26,5 @@ export class AppComponent implements OnInit {
     this.typesFacade.loadTypes();
     this.superTypesFacade.loadSuperTypes();
     this.subTypesFacade.loadSubTypes();
-  }
-
-  increment() {
-    this.counterFacade.increment();
-  }
-
-  decrement() {
-    this.counterFacade.decrement();
-  }
-
-  reset() {
-    this.counterFacade.reset();
   }
 }
