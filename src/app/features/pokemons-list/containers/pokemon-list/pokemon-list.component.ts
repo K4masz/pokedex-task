@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
+import { CardsFacade } from '../../../../core/state/cards/cards.facade';
 import { SubTypesFacade } from '../../../../core/state/subtypes/sub-types.facade';
 import { SuperTypesFacade } from '../../../../core/state/supertypes/super-types.facade';
 import { TypesFacade } from '../../../../core/state/types/types.facade';
@@ -17,20 +17,21 @@ import { PokemonListPrestentationalComponent } from "../../presentational/pokemo
   styleUrl: './pokemon-list.component.scss'
 })
 export class PokemonListComponent {
-  http = inject(HttpClient)
-
-  dataSource$ = this.http.get('https://api.pokemontcg.io/v2/cards?pageSize=10&page=1');
-
   typesFacade = inject(TypesFacade);
   superTypesFacade = inject(SuperTypesFacade);
   subTypesFacade = inject(SubTypesFacade);
+
+  cardsFacade = inject(CardsFacade);
+
+  dataSource$ = this.cardsFacade.selectCurrentPageAsDatasource$;
+  currentPageNumber$ = this.cardsFacade.currentPageNumber$;
 
   types$: Observable<string[]> = this.typesFacade.types$;
   superTypes$: Observable<string[]> = this.superTypesFacade.superTypes$;
   subTypes$: Observable<string[]> = this.subTypesFacade.subTypes$;
 
   onPageChange(event: PageEvent) {
-    this.dataSource$ = this.http.get(`https://api.pokemontcg.io/v2/cards?pageSize=10&page=${event.pageIndex}`)
+   this.cardsFacade.changePage(event.pageIndex+1)
   }
 
   onFiltersValueChange(event: FilterValues) {
@@ -53,7 +54,7 @@ export class PokemonListComponent {
       }
 
       let mapped = value.map((value: string) => `${filter}:${value}`).join(' OR ')
-      if(value.length > 1){
+      if (value.length > 1) {
         mapped = `(${mapped})`
       }
 

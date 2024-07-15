@@ -14,8 +14,8 @@ export class PokemonCatalogApiService {
   private readonly API_VERSION: string = 'v2'
   private readonly API_URL: string = `https://api.pokemontcg.io/${this.API_VERSION}`;
 
-  getCards(): Observable<PokemonCatalogResponse<Card>>{
-    return this.http.get<PokemonCatalogResponse<Card>>(this.API_URL + '/cards');
+  getCards(page: number = 1): Observable<PokemonCatalogResponse<Card>>{
+    return this.http.get<PokemonCatalogResponse<Card>>(this.API_URL + '/cards', {params: {page, pageSize: 10}});
   }
 
   getCard(id: string): Observable<PokemonCatalogResponse<{data:Card}>>{

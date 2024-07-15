@@ -26,5 +26,5 @@ export class PokemonDetailsComponent {
   superTypes$: Observable<string[]> = this.superTypesFacade.superTypes$;
   subTypes$: Observable<string[]> = this.subTypesFacade.subTypes$;
 
-  data$: Observable<Card> = this.http.get<{data: Card}>('https://api.pokemontcg.io/v2/cards/ecard2-H2').pipe(map((x => x.data)))
+  data$: Observable<Card> = this.http.get<{data: Card}>('https://api.pokemontcg.io/v2/cards/pop6-1').pipe(map((x => x.data)))
 }

@@ -4,4 +4,4 @@
 [superTypes]="(superTypes$ | async) || []"
 (filtersChange)="onFiltersValueChange($event)"
 ></app-filters>
-<app-pokemon-list-prestentational [dataSource]="dataSource$ | async" (paginationData)="onPageChange($event)"></app-pokemon-list-prestentational>
+<app-pokemon-list-prestentational [dataSource]="(dataSource$ | async) || []" (paginationData)="onPageChange($event)"></app-pokemon-list-prestentational>

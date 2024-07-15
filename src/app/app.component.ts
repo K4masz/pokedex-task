@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cardsFacade.loadCards();
+    this.cardsFacade.loadCardsPage();
     this.typesFacade.loadTypes();
     this.superTypesFacade.loadSuperTypes();
     this.subTypesFacade.loadSubTypes();

@@ -11,12 +11,12 @@ export class CardsEffects {
   actions$ = inject(Actions);
   pokemonCatalogApiService = inject(PokemonCatalogApiService)
 
-  loadCards$ = createEffect(() =>
+  loadCardsPage$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CardsActionTypes.LOAD_CARDS),
-      mergeMap(() => this.pokemonCatalogApiService.getCards()
+      ofType(CardsActionTypes.LOAD_CARDS_PAGE),
+      mergeMap(({page, filters}) => this.pokemonCatalogApiService.getCards(page)
         .pipe(
-          map((response: PokemonCatalogResponse<Card>) => ({ type: CardsActionTypes.CARDS_LOADED_SUCCESS, cards: response.data })),
+          map((response: PokemonCatalogResponse<Card>) => ({ type: CardsActionTypes.CARDS_LOADED_SUCCESS, response })),
           catchError((err) => of({type: CardsActionTypes.CARDS_LOADED_ERROR, error: err}))
         )
       )
