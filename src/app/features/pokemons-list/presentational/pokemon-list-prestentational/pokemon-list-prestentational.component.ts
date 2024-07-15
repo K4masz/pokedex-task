@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { Card } from '../../../../core/models/model';
 
 @Component({
   selector: 'app-pokemon-list-prestentational',
@@ -15,5 +16,6 @@ export class PokemonListPrestentationalComponent {
   @Input() dataSource: any;
   @Input() displayedColumns: string[] = ['id', 'name', 'supertype', 'types', 'subtypes'];
 
-  @Output() paginationData: EventEmitter<PageEvent> = new EventEmitter()
+  @Output() paginationData: EventEmitter<PageEvent> = new EventEmitter();
+  @Output() rowClickEvent: EventEmitter<Card> = new EventEmitter();
 }

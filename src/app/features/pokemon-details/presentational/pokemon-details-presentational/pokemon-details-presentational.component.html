@@ -1,20 +1,30 @@
-
 @if (card) {
 <div class="pokemon-details__details-container">
-  <img class="pokemon-details__card-image" [src]="card.images.small"/>
+  <img class="pokemon-details__card-image"
+       [src]="card.images.small" />
 
-  <form [formGroup]="cardForm" class="pokemon-details__card-details">
+  <form [formGroup]="cardForm"
+        class="pokemon-details__card-details">
 
-    <mat-form-field appearance="outline" >
+    <mat-form-field appearance="outline">
       <mat-label>name</mat-label>
       <input matInput
              formControlName="name" />
     </mat-form-field>
 
-    <div class="pokemon-details__controls" >
-      <button class="pokemon-details__control-button" [disabled]="editMode" (click)="edit()" >edit</button>
-      <button class="pokemon-details__control-button" [disabled]="!editMode" (click)="save()" >save</button>
-      <button class="pokemon-details__control-button" [disabled]="!editMode" (click)="discard()" >discard</button></div>
+    <div class="pokemon-details__controls">
+      <button class="pokemon-details__control-button"
+              [disabled]="editMode"
+              (click)="edit()">edit</button>
+      <button class="pokemon-details__control-button"
+              [disabled]="!editMode"
+              (click)="save()">save</button>
+      <button class="pokemon-details__control-button"
+              [disabled]="!editMode"
+              (click)="discard()">discard</button>
+      <button class="pokemon-details__control-button"
+              (click)="close()">close</button>
+    </div>
 
     <mat-form-field appearance="outline">
       <mat-label>HP</mat-label>
@@ -52,13 +62,13 @@
     </mat-form-field>
 
     <fieldset>
-    <legend>Resistances</legend>
-    <mat-chip-set aria-label="Card resistances">
-      @for(resistance of card.resistances; track $index){
-      <mat-chip>{{resistance.type + ' ' + resistance.value}}</mat-chip>
-      }
-    </mat-chip-set>
-  </fieldset>
+      <legend>Resistances</legend>
+      <mat-chip-set aria-label="Card resistances">
+        @for(resistance of card.resistances; track $index){
+        <mat-chip>{{resistance.type + ' ' + resistance.value}}</mat-chip>
+        }
+      </mat-chip-set>
+    </fieldset>
 
     <fieldset class="">
       <legend>Weaknesses</legend>
@@ -109,6 +119,35 @@
           *matRowDef="let myRowData; columns: attacksTableDisplayedColumns"></tr>
     </table>
   </mat-tab>
-  <mat-tab label="Similar Cards"> {{similarCards | json}} </mat-tab>
+  <mat-tab [label]="similarCardsTabLabel">
+    <table mat-table
+           [dataSource]="similarCards">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell
+            *matHeaderCellDef> id </th>
+        <td mat-cell
+            *matCellDef="let card"> {{card.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell
+            *matHeaderCellDef> name </th>
+        <td mat-cell
+            *matCellDef="let card"> {{card.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="supertype">
+        <th mat-header-cell
+            *matHeaderCellDef> supertype </th>
+        <td mat-cell
+            *matCellDef="let card"> {{card.superType}} </td>
+      </ng-container>
+
+      <tr mat-header-row
+          *matHeaderRowDef="similarCardsDisplayedColumns; sticky:true"></tr>
+      <tr mat-row
+          *matRowDef="let myRowData; columns: similarCardsDisplayedColumns"></tr>
+    </table>
+  </mat-tab>
 </mat-tab-group>
 }

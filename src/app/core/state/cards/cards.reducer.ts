@@ -2,19 +2,20 @@ import { createReducer, on } from '@ngrx/store';
 import { FilterValues } from '../../../features/pokemons-list/presentational/filters/filters.component';
 import { Card } from '../../models/model';
 import { PokemonCatalogResponse } from '../../models/util-types';
-import { cardsLoadedSuccess, cardsLoadError, changePage, loadCardsPage } from './cards.actions';
+import { cardsLoadedSuccess, cardsLoadError, changeFilters, changePage, loadCardsPage } from './cards.actions';
 
 
 
 export const CardsFeatureKey = 'cards';
 
 export interface CardsState {
-  cards: Card[];
+  cards: Card[]; //TODO: remove
   pages: { [pageNumber: string]: Card[]};
   totalCount: number;
   currentPage: number;
   filters: FilterValues;
   error?: string;
+  dirty: boolean;
 }
 
 export const initialCardsState: CardsState = {
@@ -26,7 +27,8 @@ export const initialCardsState: CardsState = {
   },
   pages: {},
   currentPage: 1,
-  totalCount: 0
+  totalCount: 0,
+  dirty: false
 };
 
 export const cardsReducer = createReducer(
@@ -34,7 +36,9 @@ export const cardsReducer = createReducer(
   on(loadCardsPage, state => onLoadCards(state)),
   on(cardsLoadedSuccess, (state, action) => onCardsLoadedSuccess(state, action.response)),
   on(cardsLoadError, (state, action) => onCardsLoadError(state, action.error)),
-  on(changePage, (state, action) => onPageChange(state, action.newPage))
+  on(changePage, (state, action) => onPageChange(state, action.newPage)),
+  on(changeFilters, (state, action) => onFiltersChange(state, action.filters)),
+
 )
 
 export function onLoadCards(state: CardsState) {
@@ -52,3 +56,8 @@ export function onCardsLoadError(state: CardsState, error: string) {
 export function onPageChange(state: CardsState, newPage: number){
   return { ...state, currentPage: newPage}
 }
+
+export function onFiltersChange(state: CardsState, filters: FilterValues){
+  return {...initialCardsState, filters}
+}
+

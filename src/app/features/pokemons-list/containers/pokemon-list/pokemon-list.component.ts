@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
+import { Card } from '../../../../core/models/model';
 import { CardsFacade } from '../../../../core/state/cards/cards.facade';
+import { CurrentCardFacade } from '../../../../core/state/current-card/current-card.facade';
 import { SubTypesFacade } from '../../../../core/state/subtypes/sub-types.facade';
 import { SuperTypesFacade } from '../../../../core/state/supertypes/super-types.facade';
 import { TypesFacade } from '../../../../core/state/types/types.facade';
@@ -22,6 +24,7 @@ export class PokemonListComponent {
   subTypesFacade = inject(SubTypesFacade);
 
   cardsFacade = inject(CardsFacade);
+  currentCardFacade = inject(CurrentCardFacade);
 
   dataSource$ = this.cardsFacade.selectCurrentPageAsDatasource$;
   currentPageNumber$ = this.cardsFacade.currentPageNumber$;
@@ -31,36 +34,14 @@ export class PokemonListComponent {
   subTypes$: Observable<string[]> = this.subTypesFacade.subTypes$;
 
   onPageChange(event: PageEvent) {
-   this.cardsFacade.changePage(event.pageIndex+1)
+    this.cardsFacade.changePage(event.pageIndex + 1)
   }
 
   onFiltersValueChange(event: FilterValues) {
-    const filterValues = this.parseFilterValues(event);
-    console.log(event, filterValues);
+    this.cardsFacade.changeFilters(event);
   }
 
-  private parseFilterValues(filterValues: FilterValues) {
-    const collector: string[] = [];
-
-    for (const filter in filterValues) {
-      let value = filterValues[filter as keyof FilterValues]
-
-      if (!value) {
-        continue;
-      }
-
-      if (typeof value === 'string') {
-        value = [value] as string[];
-      }
-
-      let mapped = value.map((value: string) => `${filter}:${value}`).join(' OR ')
-      if (value.length > 1) {
-        mapped = `(${mapped})`
-      }
-
-      collector.push(mapped)
-    }
-
-    return collector.join(' ')
+  onRowClick(event: Card) {
+    this.currentCardFacade.changeCurrentCard(event);
   }
 }

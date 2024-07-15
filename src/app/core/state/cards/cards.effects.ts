@@ -14,7 +14,7 @@ export class CardsEffects {
   loadCardsPage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CardsActionTypes.LOAD_CARDS_PAGE),
-      mergeMap(({page, filters}) => this.pokemonCatalogApiService.getCards(page)
+      mergeMap(({page, filters}) => this.pokemonCatalogApiService.getCards(page, filters)
         .pipe(
           map((response: PokemonCatalogResponse<Card>) => ({ type: CardsActionTypes.CARDS_LOADED_SUCCESS, response })),
           catchError((err) => of({type: CardsActionTypes.CARDS_LOADED_ERROR, error: err}))

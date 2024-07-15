@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { FilterValues } from '../../../features/pokemons-list/presentational/filters/filters.component';
 import { Card } from '../../models/model';
 import { PokemonCatalogResponse, SearchParams, SubType, SuperType, Type } from '../../models/util-types';
 
@@ -14,8 +15,9 @@ export class PokemonCatalogApiService {
   private readonly API_VERSION: string = 'v2'
   private readonly API_URL: string = `https://api.pokemontcg.io/${this.API_VERSION}`;
 
-  getCards(page: number = 1): Observable<PokemonCatalogResponse<Card>>{
-    return this.http.get<PokemonCatalogResponse<Card>>(this.API_URL + '/cards', {params: {page, pageSize: 10}});
+  getCards(page: number = 1, filters: FilterValues): Observable<PokemonCatalogResponse<Card>>{
+    const q = this.parseFilterValues(filters)
+    return this.http.get<PokemonCatalogResponse<Card>>(this.API_URL + '/cards', {params: {page, pageSize: 10, q }});
   }
 
   getCard(id: string): Observable<PokemonCatalogResponse<{data:Card}>>{
@@ -33,4 +35,31 @@ export class PokemonCatalogApiService {
   getSubTypes(): Observable<PokemonCatalogResponse<SubType>> { return this.http.get<PokemonCatalogResponse<SubType>>(this.API_URL + '/subtypes') }
 
   getSuperTypes(): Observable<PokemonCatalogResponse<SuperType>> { return this.http.get<PokemonCatalogResponse<SuperType>>(this.API_URL + '/supertypes') }
+
+  // --- UTILS ---
+
+  private parseFilterValues(filterValues: FilterValues) {
+    const collector: string[] = [];
+
+    for (const filter in filterValues) {
+      let value = filterValues[filter as keyof FilterValues]
+
+      if (!value) {
+        continue;
+      }
+
+      if (typeof value === 'string') {
+        value = [value] as string[];
+      }
+
+      let mapped = value.map((value: string) => `${filter.toLowerCase()}:${value}`).join(' OR ')
+      if (value.length > 1) {
+        mapped = `(${mapped})`
+      }
+
+      collector.push(mapped)
+    }
+
+    return collector.join(' ')
+  }
 }

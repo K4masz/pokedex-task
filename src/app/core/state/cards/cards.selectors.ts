@@ -7,6 +7,7 @@ export const selectCardsState = createFeatureSelector<fromCardsReducer.CardsStat
   fromCardsReducer.CardsFeatureKey
 );
 
+//TODO: remove
 export const selectCards = createSelector(
   selectCardsState,
   (state: CardsState) => state.cards
@@ -25,4 +26,14 @@ export const selectCurrentCardsPage = createSelector(
 export const selectCurrentPageAsDatasource = createSelector(
   selectCardsState,
   (state: CardsState) => ({ data: state.pages[state.currentPage], page: state.currentPage, totalCount: state.totalCount})
+)
+
+export const selectFiltersValues = createSelector(
+  selectCardsState,
+  (state: CardsState) => state.filters
+)
+
+export const selectAllCards = createSelector(
+  selectCardsState,
+  (state: CardsState) => Object.values(state.pages).flat(2)
 )

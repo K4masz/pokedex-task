@@ -25,21 +25,26 @@ export class PokemonDetailsPresentationalComponent {
       this.populateForm(value)
   }
     this._card = value;
+    this.similarCardsTabLabel = `Similar Cards (artist:${this._card?.artist})`
   };
   _card!: Card | null;
   get card(): Card | null {
     return this._card
   }
   @Input() similarCards: Card[] = [];
+
   @Input() attacksTableDisplayedColumns: string[] = ['name', 'damage', 'cost', 'convertedEnergyCost'];
+  @Input() similarCardsDisplayedColumns: string[] = ['id', 'name', 'supertype']
 
   @Input() superTypes: SuperType[] = [];
   @Input() types: Type[] = [];
   @Input() subTypes: SubType[] = [];
 
   @Output() editedCardData = new EventEmitter<Partial<Card>>();
+  @Output() closeEvent = new EventEmitter<void>();
 
   editMode = false;
+  similarCardsTabLabel: string = `Similar Cards`
 
   cardForm = this.formBuilder.group<Partial<Card>>({
     name: '',
@@ -67,9 +72,14 @@ export class PokemonDetailsPresentationalComponent {
   }
 
   discard(){
+    this.editMode = false;
     if(this._card)
     this.populateForm(this._card);
   }
 
+  close(){
+    this.editMode = false;
+    this.closeEvent.emit();
+  }
 
 }

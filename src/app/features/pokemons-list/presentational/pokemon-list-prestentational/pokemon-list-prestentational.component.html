@@ -39,11 +39,12 @@
 
   <tr mat-header-row
       *matHeaderRowDef="displayedColumns; sticky:true"></tr>
-  <tr mat-row
+  <tr mat-row (click)="rowClickEvent.next(myRowData)" style="cursor: pointer;"
       *matRowDef="let myRowData; columns: displayedColumns"></tr>
 
 </table>
 <mat-paginator [length]="dataSource.totalCount"
+               [pageIndex]="dataSource.page-1"
                [pageSize]="10"
                (page)="paginationData.next($event)"
                aria-label="Select page"></mat-paginator>

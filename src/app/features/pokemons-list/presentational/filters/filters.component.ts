@@ -1,6 +1,7 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -13,7 +14,7 @@ export interface FilterValues{
 @Component({
   selector: 'app-filters',
   standalone: true,
-  imports: [MatFormFieldModule, MatSelectModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatSelectModule, MatButtonModule, ReactiveFormsModule],
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.scss'
 })
