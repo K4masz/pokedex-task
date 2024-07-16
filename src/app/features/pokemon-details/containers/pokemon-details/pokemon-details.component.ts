@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, forwardRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDrawer } from '@angular/material/sidenav';
 import { filter, Observable, OperatorFunction, tap } from 'rxjs';
 import { Card } from '../../../../core/models/model';
@@ -26,6 +27,7 @@ export class PokemonDetailsComponent {
   currentCardFacade = inject(CurrentCardFacade)
 
   drawer = inject(forwardRef(() => MatDrawer))
+  drawerClosingSubscription = this.drawer.closedStart.pipe(takeUntilDestroyed()).subscribe(() => this.cardsFacade.resetIndex())
 
   types$: Observable<string[]> = this.typesFacade.types$;
   superTypes$: Observable<string[]> = this.superTypesFacade.superTypes$;
@@ -39,13 +41,11 @@ export class PokemonDetailsComponent {
     filter(value => !!value) as OperatorFunction<Card[] | undefined, Card[]>
   );
 
-  onCardUpdate(updatedCard: Card){
-
+  onCardUpdate(updatedCard: Card) {
     this.cardsFacade.updateIndex(updatedCard);
   }
 
   onPokemonDetailsClose() {
-    this.cardsFacade.resetIndex();
     this.drawer.close();
   }
 }
