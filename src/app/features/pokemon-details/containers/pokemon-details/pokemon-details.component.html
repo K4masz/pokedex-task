@@ -3,4 +3,5 @@
                                     [types]="(types$ | async) || [] "
                                     [subTypes]="(subTypes$ | async) || [] "
                                     [superTypes]="(superTypes$ | async) || []"
+                                    (cardUpdateEvent)="onCardUpdate($event)"
                                     (closeEvent)="onPokemonDetailsClose()"></app-pokemon-details-presentational>

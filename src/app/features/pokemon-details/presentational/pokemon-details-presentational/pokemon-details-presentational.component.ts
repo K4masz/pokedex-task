@@ -40,7 +40,7 @@ export class PokemonDetailsPresentationalComponent {
   @Input() types: Type[] = [];
   @Input() subTypes: SubType[] = [];
 
-  @Output() editedCardData = new EventEmitter<Partial<Card>>();
+  @Output() cardUpdateEvent = new EventEmitter<Card>();
   @Output() closeEvent = new EventEmitter<void>();
 
   editMode = false;
@@ -67,8 +67,7 @@ export class PokemonDetailsPresentationalComponent {
   save(){
     this.editMode = false;
     this.cardForm.disable();
-    console.log(this.cardForm.value) //TODO:Remove
-    this.editedCardData.emit(this.cardForm.value as Partial<Card>);
+    this.cardUpdateEvent.emit({...this._card, ...this.cardForm.value} as Card);
   }
 
   discard(){

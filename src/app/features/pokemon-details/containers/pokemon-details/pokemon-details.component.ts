@@ -39,6 +39,11 @@ export class PokemonDetailsComponent {
     filter(value => !!value) as OperatorFunction<Card[] | undefined, Card[]>
   );
 
+  onCardUpdate(updatedCard: Card){
+    console.log(updatedCard)
+    // this.currentCardFacade.updateCard(updatedCard);
+  }
+
   onPokemonDetailsClose() {
     this.drawer.close();
   }
