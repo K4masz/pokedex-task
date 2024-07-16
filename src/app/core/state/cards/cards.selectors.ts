@@ -26,3 +26,8 @@ export const selectCurrentPageAsDatasource = createSelector(
   selectCardsState,
   (state: CardsState) => ({ data: state.pages[state.currentPage], page: state.currentPage, totalCount: state.totalCount})
 )
+
+export const selectAllCards = createSelector(
+  selectCardsState,
+  (state: CardsState) => Object.values(state.pages).flat(2)
+)
