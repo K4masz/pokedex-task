@@ -31,8 +31,8 @@ export class PokemonDetailsComponent {
   superTypes$: Observable<string[]> = this.superTypesFacade.superTypes$;
   subTypes$: Observable<string[]> = this.subTypesFacade.subTypes$;
 
-  currentCard$: Observable<Card> = this.currentCardFacade.currentCard$.pipe(
-    filter(value => !!value) as OperatorFunction<Card | undefined, Card>,
+  currentCard$: Observable<Card> = this.cardsFacade.currentCard$.pipe(
+    filter(value => !!value) as OperatorFunction<Card | null, Card>,
     tap(() => this.drawer.open())
   );
   similarCards$: Observable<Card[]> = this.currentCardFacade.similarCards$.pipe(
@@ -40,11 +40,12 @@ export class PokemonDetailsComponent {
   );
 
   onCardUpdate(updatedCard: Card){
-    console.log(updatedCard)
-    // this.currentCardFacade.updateCard(updatedCard);
+
+    this.cardsFacade.updateIndex(updatedCard);
   }
 
   onPokemonDetailsClose() {
+    this.cardsFacade.resetIndex();
     this.drawer.close();
   }
 }

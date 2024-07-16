@@ -1,7 +1,8 @@
 <app-pokemon-details-presentational [card]="(currentCard$ | async) || null"
-                                    [similarCards]="(similarCards$ | async) || []"
+
                                     [types]="(types$ | async) || [] "
                                     [subTypes]="(subTypes$ | async) || [] "
                                     [superTypes]="(superTypes$ | async) || []"
                                     (cardUpdateEvent)="onCardUpdate($event)"
                                     (closeEvent)="onPokemonDetailsClose()"></app-pokemon-details-presentational>
+                                    <!-- [similarCards]="(similarCards$ | async) || []" -->

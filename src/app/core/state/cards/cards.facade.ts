@@ -4,18 +4,22 @@ import { combineLatest, Observable, Subscription, withLatestFrom } from 'rxjs';
 
 import { FilterValues } from '../../../features/pokemons-list/presentational/filters/filters.component';
 import { Card } from '../../models/model';
-import { changeFilters, changePage, loadCardsPage } from './cards.actions';
+import { changeFilters, changeIndex, changePage, loadCardsPage, resetIndex, updateCardAtIndex } from './cards.actions';
 import { CardsState } from './cards.reducer';
-import { selectCards, selectCurrentCardsPage, selectCurrentPage, selectCurrentPageAsDatasource, selectFiltersValues } from './cards.selectors';
+import { selectCurrentCardsPage, selectCurrentPageAsDatasource, selectCurrentPageNumber, selectFiltersValues, selectIndexFromCurrentPage } from './cards.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class CardsFacade {
   store = inject(Store<CardsState>)
 
-  cards$: Observable<Card[]> = this.store.select(selectCards);
-  currentPageNumber$: Observable<number> = this.store.select(selectCurrentPage);
+  currentPageNumber$: Observable<number> = this.store.select(selectCurrentPageNumber);
+
   currentCardsPage$: Observable<Card[]> = this.store.select(selectCurrentCardsPage);
+
+  currentCard$: Observable<Card | null> = this.store.select(selectIndexFromCurrentPage);
+
   selectCurrentPageAsDatasource$ = this.store.select(selectCurrentPageAsDatasource);
+
   filtersValues$: Observable<FilterValues> = this.store.select(selectFiltersValues);
 
   //TODO: find other solution
@@ -43,5 +47,15 @@ export class CardsFacade {
     this.store.dispatch(changeFilters({ filters }))
   }
 
+  changeCurrentIndex(index: number){
+    this.store.dispatch(changeIndex({newIndex: index}))
+  }
 
+  resetIndex(){
+    this.store.dispatch(resetIndex())
+  }
+
+  updateIndex(updatedCard: Card){
+    this.store.dispatch(updateCardAtIndex({updatedCard}))
+  }
 }
