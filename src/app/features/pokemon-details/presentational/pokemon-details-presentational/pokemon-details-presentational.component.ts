@@ -20,7 +20,7 @@ import { SubType, SuperType, Type } from '../../../../core/models/util-types';
 export class PokemonDetailsPresentationalComponent {
   formBuilder = inject(FormBuilder)
 
-  @Input() set card(value: Card | null) { //TODO: refactor
+  @Input() set card(value: Card | null) {
     if (value) {
       this.populateForm(value)
     }

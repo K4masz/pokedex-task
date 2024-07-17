@@ -21,12 +21,14 @@ export class PokemonPreviewComponent {
   superTypes$: Observable<string[]> = inject(SuperTypesFacade).superTypes$;
   subTypes$: Observable<string[]> = inject(SubTypesFacade).subTypes$;
 
-  drawer = inject(forwardRef(() => MatDrawer))
-  drawerClosingSubscription = this.drawer.closedStart.pipe(takeUntilDestroyed()).subscribe(() => console.log('left drawer close'))
+  currentCardFacade = inject(CurrentCardFacade);
 
-  similarCard$ = inject(CurrentCardFacade).currentCard$.pipe(
+  drawer = inject(forwardRef(() => MatDrawer))
+  drawerClosingSubscription = this.drawer.closedStart.pipe(takeUntilDestroyed()).subscribe()
+
+  similarCard$ = this.currentCardFacade.currentCard$.pipe(
     filter(value => !!value),
-    tap(()=> this.drawer.open())
+    tap(() => this.drawer.open())
   );
 
   onPokemonDetailsClose() {
