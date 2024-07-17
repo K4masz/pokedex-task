@@ -52,7 +52,7 @@ export class PokemonCatalogApiService {
         value = [value] as string[];
       }
 
-      let mapped = value.map((value: string) => `${filter.toLowerCase()}:${value}`).join(' OR ')
+      let mapped = value.map((value: string) => `${filter.toLowerCase()}:"${value.toLocaleLowerCase()}"`).join(' OR ')
       if (value.length > 1) {
         mapped = `(${mapped})`
       }
