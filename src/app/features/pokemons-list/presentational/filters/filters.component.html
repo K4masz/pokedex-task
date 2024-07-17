@@ -1,18 +1,20 @@
-<button  mat-button (click)="resetForm()">Reset Filters</button>
+<button mat-button
+        (click)="resetForm()">Reset Filters</button>
 
 <form [formGroup]="filterForm">
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline"
+                  [floatLabel]="'always'">
     <mat-label>superTypes</mat-label>
-    <mat-select formControlName="superType"
-                >
-                <mat-option [value]="null"></mat-option>
+    <mat-select formControlName="superType">
+      <mat-option [value]="null"></mat-option>
       @for(superType of superTypes; track $index){
       <mat-option [value]="superType">{{superType}}</mat-option>
       }
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline"
+                  [floatLabel]="'always'">
     <mat-label>types</mat-label>
     <mat-select formControlName="types"
                 multiple>
@@ -22,7 +24,8 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline"
+                  [floatLabel]="'always'">
     <mat-label>subTypes</mat-label>
     <mat-select formControlName="subTypes"
                 multiple>

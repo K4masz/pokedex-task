@@ -6,7 +6,8 @@
   <form [formGroup]="cardForm"
         class="pokemon-details__card-details">
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline"
+                    [floatLabel]="'always'">
       <mat-label>name</mat-label>
       <input matInput
              formControlName="name" />
@@ -28,13 +29,15 @@
               (click)="close()">close</button>
     </div>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline"
+                    [floatLabel]="'always'">
       <mat-label>HP</mat-label>
       <input matInput
              formControlName="hp" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline"
+                    [floatLabel]="'always'">
       <mat-label>SuperType</mat-label>
       <mat-select formControlName="supertype">
         @for (superType of superTypes; track $index) {
@@ -43,7 +46,8 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline"
+                    [floatLabel]="'always'">
       <mat-label>Types</mat-label>
       <mat-select multiple
                   formControlName="types">
@@ -53,7 +57,8 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline"
+                    [floatLabel]="'always'">
       <mat-label>SubTypes</mat-label>
       <mat-select multiple
                   formControlName="subtypes">
@@ -155,7 +160,9 @@
 
       <tr mat-header-row
           *matHeaderRowDef="similarCardsDisplayedColumns; sticky:true"></tr>
-      <tr mat-row (click)="rowClickEvent.next([i, myRowData])" style="cursor: pointer;"
+      <tr mat-row
+          (click)="rowClickEvent.next([i, myRowData])"
+          style="cursor: pointer;"
           *matRowDef="let myRowData; columns: similarCardsDisplayedColumns; let i = index"></tr>
     </table>
   </mat-tab>

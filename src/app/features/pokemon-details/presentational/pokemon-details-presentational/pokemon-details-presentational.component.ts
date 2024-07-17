@@ -59,6 +59,7 @@ export class PokemonDetailsPresentationalComponent {
   },);
 
   private populateForm(value: Partial<Card>) {
+    this.cardForm.reset();
     this.cardForm.patchValue(value);
     this.cardForm.disable();
   }
