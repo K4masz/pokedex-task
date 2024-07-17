@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { Card } from '../../../../core/models/model';
 
 @Component({
   selector: 'app-pokemon-list-prestentational',
@@ -17,5 +18,5 @@ export class PokemonListPrestentationalComponent {
   @Input() displayedColumns: string[] = ['id', 'name', 'supertype', 'types', 'subtypes'];
 
   @Output() paginationData: EventEmitter<PageEvent> = new EventEmitter();
-  @Output() rowClickEvent: EventEmitter<number> = new EventEmitter();
+  @Output() rowClickEvent: EventEmitter<[number, Card]> = new EventEmitter();
 }

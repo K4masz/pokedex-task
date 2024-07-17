@@ -1,13 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { Card } from '../../models/model';
-import { changeCurrentCard, fetchSimilarCards } from './current-card.actions';
+import { fetchSimilarCardsError, fetchSimilarCardsSuccess } from './current-card.actions';
 
 
 export const CurrentCardFeatureKey = 'currentCard';
 
 export interface CurrentCardState {
-  card?: Card;
   similarCards: Card[];
+  card?: Card;
 }
 
 export const initialCurrentCardState: CurrentCardState = {
@@ -17,14 +17,21 @@ export const initialCurrentCardState: CurrentCardState = {
 
 export const currentCardReducer = createReducer(
   initialCurrentCardState,
-  on(changeCurrentCard, (state, action) => onChangeCurrentCard(state, action.card, action.similarCards)),
-  on(fetchSimilarCards, (state, action) => onSimilarCardsFetch(state, action.similarCards))
+
+  // on(changeCurrentCard, (state, action) => onChangeCurrentCard(state, action.card)),
+
+  on(fetchSimilarCardsSuccess, (state, action) => onSimilarCardsFetchSuccess(state, action.similarCards)),
+  on(fetchSimilarCardsError, (state, action) => onFetchSimilarCardsError(state, action.error))
 )
 
-export function onChangeCurrentCard(state: CurrentCardState, card: Card, similarCards: Card[]) {
-  return { ...state, card: card, similarCards }
+export function onChangeCurrentCard(state: CurrentCardState, card: Card) {
+  return { ...state, card: card }
 }
 
-export function onSimilarCardsFetch(state: CurrentCardState, similarCards: Card[]) {
+export function onSimilarCardsFetchSuccess(state: CurrentCardState, similarCards: Card[]) {
   return { ...state, similarCards }
+}
+
+export function onFetchSimilarCardsError(state: CurrentCardState, error: string) {
+  return { ...state, error }
 }

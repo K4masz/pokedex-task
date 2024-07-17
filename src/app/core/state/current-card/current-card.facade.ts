@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Card } from '../../models/model';
 
-import { changeCurrentCard } from './current-card.actions';
+import { fetchSimilarCards } from './current-card.actions';
 import { CurrentCardState } from './current-card.reducer';
 import { selectCurrentCard, selectSimilarCards } from './current-card.selectors';
 
@@ -16,6 +16,10 @@ export class CurrentCardFacade {
   similarCards$: Observable<Card[]> = this.store.select(selectSimilarCards)
 
   changeCurrentCard(card: Card){
-    this.store.dispatch(changeCurrentCard({card, similarCards:[]}))
+    // this.store.dispatch(changeCurrentCard({card}))
+  }
+
+  fetchSimilarCards(card: Card){
+    this.store.dispatch(fetchSimilarCards({card}))
   }
 }

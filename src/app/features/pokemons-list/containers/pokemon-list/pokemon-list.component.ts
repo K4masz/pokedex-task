@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
+import { Card } from '../../../../core/models/model';
 import { CardsFacade } from '../../../../core/state/cards/cards.facade';
 import { CurrentCardFacade } from '../../../../core/state/current-card/current-card.facade';
 import { SubTypesFacade } from '../../../../core/state/subtypes/sub-types.facade';
@@ -40,7 +41,8 @@ export class PokemonListComponent {
     this.cardsFacade.changeFilters(event);
   }
 
-  onRowClick(index: number) {
+  onRowClick([index, card] : [number, Card]) {
     this.cardsFacade.changeCurrentIndex(index);
+    this.currentCardFacade.fetchSimilarCards(card);
   }
 }

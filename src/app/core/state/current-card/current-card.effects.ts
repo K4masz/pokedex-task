@@ -1,31 +1,25 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
-import { Store } from '@ngrx/store';
-import { mergeMap, of } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { Card } from '../../models/model';
-import { CardsState } from '../cards/cards.reducer';
-import { selectAllCards } from '../cards/cards.selectors';
+import { PokemonCatalogResponse } from '../../models/util-types';
+import { PokemonCatalogApiService } from '../../services/data-access-api/pokemon-catalog-api.service';
 import { CurrentCardActionTypes } from './current-card.actions';
-import { CurrentCardState } from './current-card.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class CurrentCardEffects {
   actions$ = inject(Actions);
-  currentCardStore$ = inject(Store<CurrentCardState>);
-  cardsStore$ = inject(Store<CardsState>)
+  pokemonCatalogApiService = inject(PokemonCatalogApiService);
 
-  //TODO: rename
-  similarCards$ = createEffect(() =>
+  fetchSimilarCards$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CurrentCardActionTypes.CHANGE_CURRENT_CARD),
-      concatLatestFrom(() => this.cardsStore$.select(selectAllCards)),
-      mergeMap(([action, allCards]) => {
-        const artist = action.card.artist;
-        const id = action.card.id;
-        const similarCards = allCards.filter((card:Card) => card.artist === artist && card.id !== id);
-        return of({ type: CurrentCardActionTypes.FETCH_SIMILAR_CARDS, similarCards })
-      })
+      ofType(CurrentCardActionTypes.FETCH_SIMILAR_CARDS),
+      mergeMap((action) => this.pokemonCatalogApiService.searchCards({ q: `artist:"${action.card.artist.toLowerCase()}"`, pageSize: 5 })
+        .pipe(
+          map((response: PokemonCatalogResponse<Card>) => ({ type: CurrentCardActionTypes.FETCH_SIMILAR_CARDS_SUCCESS, similarCards: response.data })),
+          catchError((err) => of({ type: CurrentCardActionTypes.FETCH_SIMILAR_CARDS_ERROR, error: err }))
+        ))
     )
-  );
+  )
 }
+

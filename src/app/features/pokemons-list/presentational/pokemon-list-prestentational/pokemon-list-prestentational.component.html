@@ -39,7 +39,7 @@
 
   <tr mat-header-row
       *matHeaderRowDef="displayedColumns; sticky:true"></tr>
-  <tr mat-row (click)="rowClickEvent.next(i)" style="cursor: pointer;"
+  <tr mat-row (click)="rowClickEvent.next([i, myRowData])" style="cursor: pointer;"
       *matRowDef="let myRowData; columns: displayedColumns; let i = index;"></tr>
 
 </table>

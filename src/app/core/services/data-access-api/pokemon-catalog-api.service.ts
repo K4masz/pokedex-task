@@ -25,7 +25,7 @@ export class PokemonCatalogApiService {
   }
 
   searchCards(searchParams: SearchParams):Observable<PokemonCatalogResponse<Card>>{
-    return this.http.get<PokemonCatalogResponse<Card>>(this.API_URL + '/cards', );
+    return this.http.get<PokemonCatalogResponse<Card>>(this.API_URL + '/cards', {params: {...searchParams}});
   }
 
   // --- TYPES ---

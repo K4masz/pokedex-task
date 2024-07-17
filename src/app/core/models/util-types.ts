@@ -15,5 +15,5 @@ export interface SearchParams{
   q?: string;
   page?: number;
   pageSize?: number;
-  orderBy: string;
+  orderBy?: string;
 }

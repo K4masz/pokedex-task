@@ -19,19 +19,15 @@ import { PokemonDetailsPresentationalComponent } from "../../presentational/poke
   styleUrl: './pokemon-details.component.scss'
 })
 export class PokemonDetailsComponent {
-  typesFacade = inject(TypesFacade);
-  superTypesFacade = inject(SuperTypesFacade);
-  subTypesFacade = inject(SubTypesFacade);
+  types$: Observable<string[]> = inject(TypesFacade).types$;
+  superTypes$: Observable<string[]> = inject(SuperTypesFacade).superTypes$;
+  subTypes$: Observable<string[]> = inject(SubTypesFacade).subTypes$;
 
   cardsFacade = inject(CardsFacade);
   currentCardFacade = inject(CurrentCardFacade)
 
   drawer = inject(forwardRef(() => MatDrawer))
   drawerClosingSubscription = this.drawer.closedStart.pipe(takeUntilDestroyed()).subscribe(() => this.cardsFacade.resetIndex())
-
-  types$: Observable<string[]> = this.typesFacade.types$;
-  superTypes$: Observable<string[]> = this.superTypesFacade.superTypes$;
-  subTypes$: Observable<string[]> = this.subTypesFacade.subTypes$;
 
   currentCard$: Observable<Card> = this.cardsFacade.currentCard$.pipe(
     filter(value => !!value) as OperatorFunction<Card | null, Card>,

@@ -21,9 +21,9 @@ export class PokemonDetailsPresentationalComponent {
   formBuilder = inject(FormBuilder)
 
   @Input() set card(value: Card | null) { //TODO: refactor
-    if (value){
+    if (value) {
       this.populateForm(value)
-  }
+    }
     this._card = value;
     this.similarCardsTabLabel = `Similar Cards (artist:${this._card?.artist})`
   };
@@ -57,29 +57,29 @@ export class PokemonDetailsPresentationalComponent {
     subtypes: []
   },);
 
-  private populateForm(value: Partial<Card>){
+  private populateForm(value: Partial<Card>) {
     this.cardForm.patchValue(value);
     this.cardForm.disable();
   }
 
-  edit(){
+  edit() {
     this.editMode = true;
     this.cardForm.enable();
   }
 
-  save(){
+  save() {
     this.editMode = false;
     this.cardForm.disable();
-    this.cardUpdateEvent.emit({...this._card, ...this.cardForm.value} as Card);
+    this.cardUpdateEvent.emit({ ...this._card, ...this.cardForm.value } as Card);
   }
 
-  discard(){
+  discard() {
     this.editMode = false;
-    if(this._card)
-    this.populateForm(this._card);
+    if (this._card)
+      this.populateForm(this._card);
   }
 
-  close(){
+  close() {
     this.editMode = false;
     this.closeEvent.emit();
   }

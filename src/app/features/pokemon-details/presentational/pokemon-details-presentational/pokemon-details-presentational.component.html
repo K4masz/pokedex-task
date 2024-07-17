@@ -121,8 +121,9 @@
           *matRowDef="let myRowData; columns: attacksTableDisplayedColumns"></tr>
     </table>
   </mat-tab>
+  @if(showSimilarCardsTab){
   <mat-tab [label]="similarCardsTabLabel">
-    <!-- <table mat-table
+    <table mat-table
            [dataSource]="similarCards">
       <ng-container matColumnDef="id">
         <th mat-header-cell
@@ -138,18 +139,26 @@
             *matCellDef="let card"> {{card.name}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="hp">
+        <th mat-header-cell
+            *matHeaderCellDef> hp </th>
+        <td mat-cell
+            *matCellDef="let card"> {{card.hp}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="supertype">
         <th mat-header-cell
             *matHeaderCellDef> supertype </th>
         <td mat-cell
-            *matCellDef="let card"> {{card.superType}} </td>
+            *matCellDef="let card"> {{card.supertype}} </td>
       </ng-container>
 
       <tr mat-header-row
           *matHeaderRowDef="similarCardsDisplayedColumns; sticky:true"></tr>
       <tr mat-row
           *matRowDef="let myRowData; columns: similarCardsDisplayedColumns"></tr>
-    </table> -->
+    </table>
   </mat-tab>
+  }
 </mat-tab-group>
 }
