@@ -45,6 +45,7 @@ export class PokemonDetailsPresentationalComponent {
 
   @Output() cardUpdateEvent = new EventEmitter<Card>();
   @Output() closeEvent = new EventEmitter<void>();
+  @Output() rowClickEvent: EventEmitter<[number, Card]> = new EventEmitter();
 
   editMode = false;
   similarCardsTabLabel: string = `Similar Cards`
@@ -83,5 +84,6 @@ export class PokemonDetailsPresentationalComponent {
     this.editMode = false;
     this.closeEvent.emit();
   }
+
 
 }

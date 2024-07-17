@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Card } from '../../models/model';
-import { fetchSimilarCardsError, fetchSimilarCardsSuccess } from './current-card.actions';
+import { changeCurrentCard, fetchSimilarCardsError, fetchSimilarCardsSuccess } from './current-card.actions';
 
 
 export const CurrentCardFeatureKey = 'currentCard';
@@ -18,7 +18,7 @@ export const initialCurrentCardState: CurrentCardState = {
 export const currentCardReducer = createReducer(
   initialCurrentCardState,
 
-  // on(changeCurrentCard, (state, action) => onChangeCurrentCard(state, action.card)),
+  on(changeCurrentCard, (state, action) => onChangeCurrentCard(state, action.card)),
 
   on(fetchSimilarCardsSuccess, (state, action) => onSimilarCardsFetchSuccess(state, action.similarCards)),
   on(fetchSimilarCardsError, (state, action) => onFetchSimilarCardsError(state, action.error))

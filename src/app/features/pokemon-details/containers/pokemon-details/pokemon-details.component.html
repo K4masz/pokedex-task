@@ -5,6 +5,7 @@
                                     [types]="(types$ | async) || [] "
                                     [subTypes]="(subTypes$ | async) || [] "
                                     [superTypes]="(superTypes$ | async) || []"
+                                    (rowClickEvent)="onRowClick($event)"
                                     (cardUpdateEvent)="onCardUpdate($event)"
                                     (closeEvent)="onPokemonDetailsClose()"></app-pokemon-details-presentational>
 

@@ -14,7 +14,7 @@ export class CurrentCardEffects {
   fetchSimilarCards$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CurrentCardActionTypes.FETCH_SIMILAR_CARDS),
-      mergeMap((action) => this.pokemonCatalogApiService.searchCards({ q: `artist:"${action.card.artist.toLowerCase()}"`, pageSize: 5 })
+      mergeMap((action) => this.pokemonCatalogApiService.searchCards({ q: `artist:"${action.card.artist.toLowerCase()}" -id:"${action.card.id.toLowerCase()}"`, pageSize: 5 })
         .pipe(
           map((response: PokemonCatalogResponse<Card>) => ({ type: CurrentCardActionTypes.FETCH_SIMILAR_CARDS_SUCCESS, similarCards: response.data })),
           catchError((err) => of({ type: CurrentCardActionTypes.FETCH_SIMILAR_CARDS_ERROR, error: err }))

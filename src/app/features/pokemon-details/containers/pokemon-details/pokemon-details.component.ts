@@ -44,4 +44,8 @@ export class PokemonDetailsComponent {
   onPokemonDetailsClose() {
     this.drawer.close();
   }
+
+  onRowClick([index, card] : [number, Card]){
+    this.currentCardFacade.changeCurrentCard(card);
+  }
 }
