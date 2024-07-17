@@ -161,8 +161,8 @@
       <tr mat-header-row
           *matHeaderRowDef="similarCardsDisplayedColumns; sticky:true"></tr>
       <tr mat-row
+          class="pokemon-details__table-row"
           (click)="rowClickEvent.next([i, myRowData])"
-          style="cursor: pointer;"
           *matRowDef="let myRowData; columns: similarCardsDisplayedColumns; let i = index"></tr>
     </table>
   </mat-tab>

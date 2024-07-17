@@ -2,3 +2,26 @@
   display: block;
   height: 100vh;
 }
+
+.pokedex {
+  margin: auto;
+  top: 2rem;
+  height: 90vh;
+  width: 95vw;
+
+  &__container {
+    height: 100%;max-height: 100%; overflow: hidden;
+  }
+
+  &__main-content{
+    height: 100%;
+  }
+
+  &__header {
+    border-bottom: 1px solid black;
+  }
+
+  &__drawer {
+    width: 45vw;
+  }
+}

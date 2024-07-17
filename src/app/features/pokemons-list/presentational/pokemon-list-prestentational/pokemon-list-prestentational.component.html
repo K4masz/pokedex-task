@@ -1,4 +1,5 @@
 <table mat-table
+       class="pokemon-list"
        [dataSource]="dataSource.data">
 
   <ng-container matColumnDef="name">
@@ -39,7 +40,9 @@
 
   <tr mat-header-row
       *matHeaderRowDef="displayedColumns; sticky:true"></tr>
-  <tr mat-row (click)="rowClickEvent.next([i, myRowData])" style="cursor: pointer;"
+  <tr mat-row
+      class="pokemon-list__table-row"
+      (click)="rowClickEvent.next([i, myRowData])"
       *matRowDef="let myRowData; columns: displayedColumns; let i = index;"></tr>
 
 </table>
@@ -47,4 +50,4 @@
                [pageIndex]="dataSource.page-1"
                [pageSize]="10"
                (page)="paginationData.next($event)"
-               aria-label="Select page"></mat-paginator>
+               aria-label="Select card"></mat-paginator>
