@@ -1,0 +1,5 @@
+<app-pokemon-details-presentational [card]="(similarCard$ | async) || null"
+                                    [types]="(types$ | async) || [] "
+                                    [subTypes]="(subTypes$ | async) || [] "
+                                    [superTypes]="(superTypes$ | async) || []"
+                                    (closeEvent)="onPokemonDetailsClose()"></app-pokemon-details-presentational>

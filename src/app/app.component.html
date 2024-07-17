@@ -1,21 +1,38 @@
 <mat-card style="margin: auto; top:2rem; height:90vh; width: 95vw;">
   <mat-card-header style="border-bottom: 1px solid black;">
-    <mat-card-title>Pokédex <button (click)="drawer.open()">open</button>
-      <button (click)="drawer.close()">close</button></mat-card-title>
+    <mat-card-title>Pokédex
+
+      <button (click)="drawerleft.open()">open</button>
+      <button (click)="drawerleft.close()">close</button>
+      <button (click)="drawer.open()">open</button>
+      <button (click)="drawer.close()">close</button>
+
+
+    </mat-card-title>
+
+
     <mat-divider></mat-divider>
   </mat-card-header>
   <mat-card-content style="height: 100%;max-height: 100%; overflow: hidden;">
+
     <mat-drawer-container style="height: 100%;">
+
       <mat-drawer-content>
         <app-pokemon-list></app-pokemon-list>
       </mat-drawer-content>
-      <mat-drawer #drawer
-                  style="width:65vw;"
-                  mode="over"
-                  position="end">
 
-        <app-pokemon-details></app-pokemon-details>
+      <mat-drawer #drawerleft position="start"  style="width:45vw;" mode="over" opened>
+          <app-pokemon-preview></app-pokemon-preview>
       </mat-drawer>
+
+      <mat-drawer #drawer
+      style="width:45vw;"
+                  mode="over"
+                  position="end"
+                  opened>
+                  <app-pokemon-details></app-pokemon-details>
+      </mat-drawer>
+
     </mat-drawer-container>
 
   </mat-card-content>

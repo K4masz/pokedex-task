@@ -13,11 +13,12 @@ import { CardsFacade } from './core/state/cards/cards.facade';
 import { SubTypesFacade } from './core/state/subtypes/sub-types.facade';
 import { SuperTypesFacade } from './core/state/supertypes/super-types.facade';
 import { TypesFacade } from './core/state/types/types.facade';
+import { PokemonPreviewComponent } from './features/pokemon-details/containers/pokemon-preview/pokemon-details-preview.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, PokemonListComponent, MatCardModule, MatSidenavModule, MatDivider, PokemonDetailsComponent],
+  imports: [RouterOutlet, CommonModule, PokemonListComponent, MatCardModule, MatSidenavModule, MatDivider, PokemonDetailsComponent, PokemonPreviewComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
