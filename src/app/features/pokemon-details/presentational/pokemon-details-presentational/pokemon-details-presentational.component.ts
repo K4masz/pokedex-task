@@ -41,6 +41,7 @@ export class PokemonDetailsPresentationalComponent {
   @Input() subTypes: SubType[] = [];
 
   @Input() editable: boolean = false;
+  @Input() showSimilarCardsTab: boolean = false;
 
   @Output() cardUpdateEvent = new EventEmitter<Card>();
   @Output() closeEvent = new EventEmitter<void>();
