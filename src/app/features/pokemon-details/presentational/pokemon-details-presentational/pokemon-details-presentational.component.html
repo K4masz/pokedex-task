@@ -13,6 +13,7 @@
     </mat-form-field>
 
     <div class="pokemon-details__controls">
+      @if(editable){
       <button class="pokemon-details__control-button"
               [disabled]="editMode"
               (click)="edit()">edit</button>
@@ -22,6 +23,7 @@
       <button class="pokemon-details__control-button"
               [disabled]="!editMode"
               (click)="discard()">discard</button>
+      }
       <button class="pokemon-details__control-button"
               (click)="close()">close</button>
     </div>

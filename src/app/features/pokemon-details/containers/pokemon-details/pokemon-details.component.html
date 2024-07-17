@@ -1,5 +1,5 @@
 <app-pokemon-details-presentational [card]="(currentCard$ | async) || null"
-
+                                    [editable]="true"
                                     [types]="(types$ | async) || [] "
                                     [subTypes]="(subTypes$ | async) || [] "
                                     [superTypes]="(superTypes$ | async) || []"

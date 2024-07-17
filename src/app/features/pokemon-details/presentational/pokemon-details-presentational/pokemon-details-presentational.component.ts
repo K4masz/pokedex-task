@@ -40,6 +40,8 @@ export class PokemonDetailsPresentationalComponent {
   @Input() types: Type[] = [];
   @Input() subTypes: SubType[] = [];
 
+  @Input() editable: boolean = false;
+
   @Output() cardUpdateEvent = new EventEmitter<Card>();
   @Output() closeEvent = new EventEmitter<void>();
 
