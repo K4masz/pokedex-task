@@ -22,14 +22,12 @@ export class CardsFacade {
 
   filtersValues$: Observable<FilterValues> = this.store.select(selectFiltersValues);
 
-  //TODO: find other solution
   pageChangeCardsLoadSubscription: Subscription = combineLatest([this.currentPageNumber$, this.filtersValues$]).pipe(withLatestFrom(this.currentCardsPage$))
     .subscribe(([[currentPageNumber, filterValues], currentCardsPage]: [[number, FilterValues], Card[]]) => {
       if (!currentCardsPage)
         this.store.dispatch(loadCardsPage({ page: currentPageNumber,  filters: filterValues  }))
     })
 
-  //TODO: find other solution
   filtersChangeCardsLoadSubscription: Subscription = this.filtersValues$
     .subscribe(filters => (this.store.dispatch(loadCardsPage({ page: 1, filters })))
   )
